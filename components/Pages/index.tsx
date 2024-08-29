@@ -7,6 +7,10 @@ import Icon2Titles from '@/components/Libs/Icon2Titles';
 import Icon3Titles from '@/components/Libs/Icon3Titles';
 import css from './css.module.css'
 import WindowFloat from '../Libs/WindowFloat';
+import {Block} from './Block';
+
+
+
 
 
 export default p => Component(p, Page);
@@ -57,6 +61,23 @@ const Page: PageEl = (props, state, refresh, getProps) => {
         <f-15>{(state.book.pages as number)}</f-15>
       </f-c>
 
+
+      <g-b style ={{ backgroundColor:"tan", borderRadius:5}}onClick={()=>{
+
+        if (!state.faves)
+        {
+          state.faves =[]
+        }
+        state.faves.push(state.book.title)
+        state.form = null
+        refresh()
+      }}>
+
+        <img src="https://irmapserver.ir/research/34/vecteezy_mobile-game-golden-star-clipart-design-illustration_9342559.png"
+        style={{height:25, width:25, objectFit:"contain"}}/>
+
+      </g-b>
+
       </WindowFloat>:null}
 
       <Window title={name} style={{ minHeight: 200, margin: 10, width: "calc(100% - 20px)" }}>
@@ -65,14 +86,11 @@ const Page: PageEl = (props, state, refresh, getProps) => {
 
        <w-cse style={{}}>
         {props.books.map(book=>{
-          return <img
-          className={global.styles.hoverzoom_nofade}
-           src={book.imageLink} style={{width:150, height:200, objectFit:"fill", flex:1, minWidth:150}}
-           onClick ={()=>{
-            state.form ="bookspecs"
-            state.book = 
-            refresh()
-           }}/>
+          return <Block 
+          book={book}
+          state={state}
+          refresh={refresh} />
+
 
         })}
        </w-cse>
